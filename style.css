@@ -3,6 +3,7 @@
   --bg-alt: #0b1120;
   --accent: #22c55e;
   --accent-soft: rgba(34, 197, 94, 0.2);
+  --accent-blue: #38bdf8;
   --text: #e5e7eb;
   --muted: #9ca3af;
   --border: #1f2937;
@@ -21,31 +22,41 @@ body {
   min-height: 100vh;
 }
 
-/* Subtle animated grid background */
-.background-grid {
+/* Floating algae particles background */
+.algae-field {
   position: fixed;
   inset: 0;
-  background-image: linear-gradient(
-      rgba(15, 23, 42, 0.35) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(15, 23, 42, 0.35) 1px,
-      transparent 1px
-    );
-  background-size: 40px 40px;
-  opacity: 0.4;
   pointer-events: none;
-  animation: gridShift 20s linear infinite;
+  z-index: -1;
+  background: radial-gradient(circle at 10% 20%, rgba(34, 197, 94, 0.08) 0, transparent 40%),
+              radial-gradient(circle at 80% 30%, rgba(56, 189, 248, 0.08) 0, transparent 45%),
+              radial-gradient(circle at 30% 80%, rgba(34, 197, 94, 0.06) 0, transparent 40%);
+  overflow: hidden;
 }
 
-@keyframes gridShift {
+.algae-field::before,
+.algae-field::after {
+  content: "";
+  position: absolute;
+  width: 160%;
+  height: 160%;
+  background-image: radial-gradient(circle, rgba(34, 197, 94, 0.18) 1px, transparent 0);
+  background-size: 40px 40px;
+  opacity: 0.25;
+  animation: algaeDrift 40s linear infinite;
+}
+
+.algae-field::after {
+  animation-duration: 55s;
+  opacity: 0.18;
+}
+
+@keyframes algaeDrift {
   from {
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(-40px, -40px, 0);
+    transform: translate3d(-80px, -60px, 0);
   }
 }
 
@@ -59,8 +70,8 @@ body {
   align-items: center;
   padding: 1rem 8%;
   backdrop-filter: blur(18px);
-  background: rgba(2, 6, 23, 0.85);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(2, 6, 23, 0.9);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
 }
 
 .logo {
@@ -109,7 +120,7 @@ body {
 }
 
 .section-text {
-  max-width: 640px;
+  max-width: 720px;
   color: var(--muted);
   line-height: 1.7;
   margin-bottom: 1.5rem;
@@ -124,7 +135,7 @@ body {
   padding-top: 5rem;
 }
 
-.hero-title {
+.hero h1 {
   font-size: 2.6rem;
   line-height: 1.2;
   margin-bottom: 1rem;
@@ -132,7 +143,7 @@ body {
 
 .hero-subtitle {
   color: var(--muted);
-  max-width: 540px;
+  max-width: 560px;
   line-height: 1.7;
 }
 
@@ -169,7 +180,7 @@ body {
 
 .btn.ghost {
   border: 1px solid var(--border);
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(15, 23, 42, 0.85);
   color: var(--text);
 }
 
@@ -177,7 +188,7 @@ body {
   background: rgba(15, 23, 42, 1);
 }
 
-/* Reactor visual with bubbles */
+/* Reactor visual */
 .hero-visual {
   display: flex;
   justify-content: center;
@@ -194,22 +205,37 @@ body {
   overflow: hidden;
 }
 
-.reactor-label {
+.reactor-inner {
   position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(226, 232, 240, 0.9);
+  inset: 18px 22px 40px;
+  border-radius: 1.1rem;
+  background: radial-gradient(circle at bottom, rgba(34, 197, 94, 0.18) 0, #020617 60%);
+  border: 1px solid rgba(148, 163, 184, 0.35);
 }
 
-/* Animated bubbles */
+.electrode {
+  position: absolute;
+  bottom: 18px;
+  width: 18px;
+  height: 80%;
+  background: linear-gradient(180deg, #1f2937, #0f172a);
+  border-radius: 999px;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
+}
+
+.electrode-left {
+  left: 26%;
+}
+
+.electrode-right {
+  right: 26%;
+}
+
+/* Animated bubbles inside reactor */
 .bubble {
   position: absolute;
   bottom: -40px;
-  left: 25%;
+  left: 50%;
   width: 26px;
   height: 26px;
   border-radius: 999px;
@@ -219,11 +245,19 @@ body {
 }
 
 .bubble-delay {
-  left: 65%;
-  width: 18px;
-  height: 18px;
+  left: 35%;
+  width: 20px;
+  height: 20px;
   animation-duration: 7.5s;
   animation-delay: 1.5s;
+}
+
+.bubble-small {
+  left: 65%;
+  width: 16px;
+  height: 16px;
+  animation-duration: 5.5s;
+  animation-delay: 0.8s;
 }
 
 @keyframes bubbleRise {
@@ -235,16 +269,27 @@ body {
     opacity: 1;
   }
   80% {
-    transform: translateY(-280px) scale(1.1);
+    transform: translateY(-260px) scale(1.1);
     opacity: 1;
   }
   100% {
-    transform: translateY(-320px) scale(0.9);
+    transform: translateY(-300px) scale(0.9);
     opacity: 0;
   }
 }
 
-/* Cards */
+.reactor-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+/* Cards and grids */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -262,7 +307,7 @@ body {
   );
   border: 1px solid rgba(148, 163, 184, 0.35);
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
-  transform: translateY(8px);
+  transform: translateY(10px);
   opacity: 0;
   transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
@@ -276,6 +321,41 @@ body {
   color: var(--muted);
   font-size: 0.9rem;
   line-height: 1.6;
+}
+
+/* System blocks */
+.system-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.system-block {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+  transform: translateY(10px);
+  opacity: 0;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.system-block h3 {
+  margin-bottom: 0.6rem;
+}
+
+.system-block p {
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+
+.system-block ul {
+  list-style: disc;
+  padding-left: 1.2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 /* Data panel */
@@ -308,12 +388,31 @@ body {
   color: var(--muted);
 }
 
+/* Team */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.team-card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+}
+
 /* Footer */
 .footer {
   padding: 2rem 8%;
   border-top: 1px solid rgba(31, 41, 55, 0.8);
   font-size: 0.85rem;
   color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 /* Responsive */
