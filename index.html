@@ -1,347 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MOPP — Mosquito & Organism Purification Project</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="algae-field"></div>
+  <style>
+    /* ==========================================================================
+       RESET & BASE STYLES
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <header class="nav">
-    <div class="logo">MOPP</div>
-    <nav>
-      <a href="#overview">Overview</a>
-      <a href="#method">How it works</a>
-      <a href="#results">Results</a>
-      <a href="#recognition">Recognition</a>
-      <a href="#build">Build it</a>
-      <a href="#support">Support</a>
-      <a href="#team">Team</a>
-    </nav>
-  </header>
+    :root {
+      --bg-dark: #050e09;
+      --bg-card: rgba(12, 28, 18, 0.65);
+      --border-card: rgba(57, 255, 20, 0.18);
+      --border-card-hover: rgba(57, 255, 20, 0.45);
+      --text-main: #e2f9e5;
+      --text-muted: #83a987;
+      --accent-neon: #39ff14;
+      --accent-glow: rgba(57, 255, 20, 0.35);
+      --accent-dim: #13381a;
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-  <main>
-    <!-- HERO / BASIC OVERVIEW -->
-    <section id="overview" class="section hero">
-      <div class="hero-content">
-        <h1>MOPP</h1>
-        <p class="hero-tagline">Mosquito &amp; Organism Purification Project</p>
-        <p class="hero-subtitle">
-          Removing the root cause<br />
-          of mosquito breeding.
-        </p>
-        <p class="hero-body">
-          Mosquitoes breed on the still algal film of stagnant water. The MOPP system aggregates and sinks
-          that surface algae cutting off the breeding layer while leaving the pond's biosphere intact.
-        </p>
-        <div class="hero-buttons">
-          <a href="#paper" class="btn primary">Our Paper</a>
-          <a href="#support" class="btn ghost">Support MOPP</a>
-        </div>
-        <div class="awards-row">
-          <div class="award-pill">
-            <span class="award-rank">2nd</span>
-            <span class="award-label">Regional MSEF</span>
-          </div>
-          <div class="award-pill">
-            <span class="award-rank">3rd</span>
-            <span class="award-label">State MSEF</span>
-          </div>
-          <div class="award-pill">
-            <span class="award-label">Patent Pending</span>
-          </div>
-          <div class="award-pill">
-            <span class="award-label">Open Source goal</span>
-          </div>
-        </div>
-      </div>
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.5;
+    }
 
-      <!-- SYSTEM ARCHITECTURE / ELECTRODE DRAWING -->
-      <div class="hero-visual">
-        <div class="reactor-card">
-          <div class="reactor-inner">
-            <!-- System architecture: power -> control -> electrodes -->
-            <div class="system-node node-power">DC</div>
-            <div class="system-node node-control">MOSFET</div>
-            <div class="system-node node-reactor">Reactor</div>
-            <div class="system-link link-power"></div>
-            <div class="system-link link-control"></div>
+    body {
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
 
-            <!-- Electrode spacing + bubble formation -->
-            <div class="electrode electrode-left"></div>
-            <div class="electrode electrode-right"></div>
-            <div class="spacing-bar"></div>
+    /* Floating Canvas Background */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
 
-            <!-- Bubble formation / aggregation / sinking -->
-            <div class="bubble bubble-rise"></div>
-            <div class="bubble bubble-rise delay"></div>
-            <div class="bubble bubble-rise small"></div>
+    /* Typography & Core Elements */
+    h1, h2, h3, h4 {
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
 
-            <div class="floc floc-1"></div>
-            <div class="floc floc-2"></div>
-            <div class="floc floc-3"></div>
+    a {
+      color: var(--accent-neon);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
 
-            <!-- Larval reduction (surface layer clearing) -->
-            <div class="surface-layer"></div>
-            <div class="larva larva-1"></div>
-            <div class="larva larva-2"></div>
-          </div>
-          <div class="reactor-label">Electrode spacing · bubbles · aggregation · larvae</div>
-        </div>
-      </div>
-    </section>
+    a:hover {
+      text-shadow: 0 0 10px var(--accent-glow);
+    }
 
-    <!-- 01 — THE ISSUE (MOPP / PROBLEM) -->
-    <section id="problem" class="section">
-      <div class="section-header">
-        <span class="section-index">01 — The issue</span>
-        <h2>Surface algae is a mosquito breeding hotspot.</h2>
-      </div>
-      <p class="section-text">
-        Standing water with a stable surface layer is a major breeding location for mosquitoes. Wherever the
-        surface stays undisturbed and rich in algae, mosquitoes breed excessively and increase the risk of
-        transmitted diseases like malaria and yellow fever.
-      </p>
-      <p class="section-text">
-        Most solutions now are Larvicides, oils, and draining. These work by killing broadly or destroying
-        the habitat, and require reapplication to stay clean. MOPP simply moves the algal layer to be
-        inaccessible to mosquitoes, and leaves the rest of the ecosystem alone.
-      </p>
+    /* Glassmorphism Card Style */
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-      <!-- Diagram: surface film + breeding layer -->
-      <div class="diagram-row">
-        <div class="diagram-card">
-          <div class="diagram-water">
-            <div class="diagram-surface-film"></div>
-            <div class="diagram-larva diagram-larva-a"></div>
-            <div class="diagram-larva diagram-larva-b"></div>
-          </div>
-        </div>
-      </div>
-    </section>
+    .glass-card:hover {
+      border-color: var(--border-card-hover);
+      box-shadow: 0 12px 40px 0 rgba(57, 255, 20, 0.15);
+      transform: translateY(-2px);
+    }
 
-    <!-- 02 — THE METHOD (How it works) -->
-    <section id="method" class="section">
-      <div class="section-header">
-        <span class="section-index">02 — The method</span>
-        <h2>Aggregate, clear, remove.</h2>
-      </div>
-      <p class="section-text">A simple 3 step process.</p>
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-neon);
+      color: var(--accent-neon);
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
 
-      <div class="method-grid">
-        <div class="method-step">
-          <div class="step-number">01</div>
-          <h3>Aggregate</h3>
-          <p>
-            Microbubbles from the splitting of H<sub>2</sub>O molecules in electrolysis cause algal particles
-            and cells to aggregate into large groups.
-          </p>
-          <div class="diagram-mini">
-            <div class="mini-electrodes">
-              <div class="mini-electrode"></div>
-              <div class="mini-electrode"></div>
-            </div>
-            <div class="mini-bubble mini-bubble-1"></div>
-            <div class="mini-bubble mini-bubble-2"></div>
-            <div class="mini-bubble mini-bubble-3"></div>
-          </div>
-        </div>
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.75rem;
+      border-radius: 12px;
+      font-weight: 600;
+      background: var(--accent-neon);
+      color: #000;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 15px var(--accent-glow);
+      transition: all 0.3s ease;
+    }
 
-        <div class="method-step">
-          <div class="step-number">02</div>
-          <h3>Clear</h3>
-          <p>
-            The aggregated algal content sinks further down the water column, leaving the surface of the water
-            clear of algae and film.
-          </p>
-          <div class="diagram-mini">
-            <div class="mini-water">
-              <div class="mini-floc mini-floc-sink-1"></div>
-              <div class="mini-floc mini-floc-sink-2"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="method-step">
-          <div class="step-number">03</div>
-          <h3>Remove</h3>
-          <p>
-            Without the biofilm to attach to nor their primary food source, mosquito larvae die off, and
-            mosquitoes naturally leave the area.
-          </p>
-          <div class="diagram-mini">
-            <div class="mini-surface-clear"></div>
-            <div class="mini-larva mini-larva-fade"></div>
-          </div>
-        </div>
-      </div>
-
-      <p class="section-text">
-        MOPP targets the physical breeding layer, nothing in the water is chemically killed or harmed.
-      </p>
-    </section>
-
-    <!-- 03 — RESULTS & DATA -->
-    <section id="results" class="section">
-      <div class="section-header">
-        <span class="section-index">03 — Results &amp; data</span>
-        <h2>Findings</h2>
-      </div>
-      <p class="section-text">
-        Our findings are published and the data is free to inspect.
-      </p>
-
-      <div class="results-grid">
-        <div class="results-card">
-          <h3>Surface algae coverage over a trial run</h3>
-          <p class="results-caption">
-            0h · 6h · 12h · 24h · 36h · 48h · 72h
-          </p>
-          <div class="chart chart-algae"></div>
-          <p class="results-note">
-            Example values — swap in your real dataset in <code>main.js</code>.
-          </p>
-        </div>
-
-        <div class="results-card">
-          <h3>Larvae counts: treated vs. control</h3>
-          <p class="results-caption">
-            Day 0 · Day 2 · Day 4 · Day 6 · Treated · Control
-          </p>
-          <div class="chart chart-larvae"></div>
-          <p class="results-note">
-            Example values — swap in your real dataset in <code>main.js</code>.
-          </p>
-        </div>
-      </div>
-
-      <div class="downloads-row" id="paper">
-        <div class="download-pill">
-          <span class="download-type">PDF</span>
-          <span class="download-label">Published paper</span>
-          <span class="download-desc">The full method &amp; findings</span>
-        </div>
-        <div class="download-pill">
-          <span class="download-type">CSV</span>
-          <span class="download-label">Raw dataset</span>
-          <span class="download-desc">Every measurement, unedited</span>
-        </div>
-        <div class="download-pill">
-          <span class="download-type">PDF</span>
-          <span class="download-label">MSEF poster</span>
-          <span class="download-desc">The board we presented</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 04 — RECOGNITION -->
-    <section id="recognition" class="section">
-      <div class="section-header">
-        <span class="section-index">04 — Recognition</span>
-        <h2>Where MOPP has been recognized.</h2>
-      </div>
-
-      <div class="recognition-grid">
-        <div class="recognition-card">
-          <h3>2nd</h3>
-          <p>Regional MSEF</p>
-          <p class="recognition-note">Second place, regional science &amp; engineering fair.</p>
-        </div>
-        <div class="recognition-card">
-          <h3>3rd</h3>
-          <p>State MSEF</p>
-          <p class="recognition-note">Third place, statewide science &amp; engineering fair.</p>
-        </div>
-        <div class="recognition-card recognition-star">
-          <h3>★</h3>
-          <p>Additional awards</p>
-          <p class="recognition-note">
-            NOAA "Taking The Pulse of The Planet" award
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 05 — OPEN SOURCE / BUILD IT -->
-    <section id="build" class="section">
-      <div class="section-header">
-        <span class="section-index">05 — Open source</span>
-        <h2>Built to be rebuildable by anyone.</h2>
-      </div>
-      <p class="section-text">
-        Our goal is to offer both our custom hardware, as well as the designs and science so anyone can
-        recreate our method and make it work.
-      </p>
-
-      <div class="build-grid">
-        <div class="build-card">
-          <h3>Designs &amp; source</h3>
-          <p>Hardware files, firmware, and build instructions on GitHub.</p>
-          <button class="btn primary">Repository -&gt;</button>
-        </div>
-        <div class="build-card">
-          <h3>Data &amp; papers</h3>
-          <p>The full dataset and paper are public.</p>
-          <button class="btn ghost">Go to results -&gt;</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 06 — SUPPORT -->
-    <section id="support" class="section">
-      <div class="section-header">
-        <span class="section-index">06 — Support</span>
-        <h2>Help us get MOPP to where it's needed.</h2>
-      </div>
-      <p class="section-text">
-        Funding covers field trials and further research and development, as well as keeping things open
-        source and available. Support and guidance is also much appreciated!
-      </p>
-
-      <div class="support-row">
-        <div class="support-card">
-          <h3>GOFUNDME/KICKSTARTER</h3>
-        </div>
-        <div class="support-card">
-          <h3>Get in touch</h3>
-        </div>
-      </div>
-    </section>
-
-    <!-- 07 — TEAM -->
-    <section id="team" class="section">
-      <div class="section-header">
-        <span class="section-index">07 — The team</span>
-        <h2>The team behind MOPP.</h2>
-      </div>
-
-      <div class="team-grid">
-        <div class="team-card">
-          <div class="team-initial">M</div>
-          <h3>Max Costa</h3>
-          <p>Electrical and Embedded Systems Engineer</p>
-        </div>
-        <div class="team-card">
-          <div class="team-initial">Y</div>
-          <h3>Yatharth Rajakumar</h3>
-          <p>Systems Engineer and Project Manager</p>
-        </div>
-      </div>
-
-      <p class="section-text team-contact">
-        Questions, collaboration, or press: you@example.com
-      </p>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p>MOPP</p>
-    <p>Mosquito &amp; Organism Purification Project · Patent pending · Open-source in progress</p>
-    <p>© 2026 MOPP. Built for anyone who needs it.</p>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+    .btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 25px var(--accent-neon);
+    }
