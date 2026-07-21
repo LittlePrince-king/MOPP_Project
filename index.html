@@ -2,129 +2,272 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Electroflotation Lab</title>
+  <title>Low-Voltage Electroflotation for Algal Clarification</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="background-grid"></div>
+  <div class="algae-field"></div>
 
   <header class="nav">
-    <div class="logo">Electroflotation</div>
+    <div class="logo">Electroflotation Lab</div>
     <nav>
-      <a href="#hero">Home</a>
-      <a href="#overview">System</a>
-      <a href="#experiments">Experiments</a>
+      <a href="#hero">Overview</a>
+      <a href="#problem">Problem</a>
+      <a href="#system">System</a>
+      <a href="#results">Results</a>
+      <a href="#thresholds">Thresholds</a>
+      <a href="#future">Future Work</a>
       <a href="#team">Team</a>
-      <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <main>
+    <!-- HERO -->
     <section id="hero" class="section hero">
       <div class="hero-content">
-        <h1 class="hero-title">Electroflotation for Algae & Water Treatment</h1>
+        <h1>Low‑Voltage Electroflotation for Algal Clarification</h1>
         <p class="hero-subtitle">
-          A research project exploring bubble generation, turbidity reduction, and control systems
-          for next‑gen electroflotation reactors.
+          We explore whether low‑voltage electroflotation can clarify algae‑rich, mosquito‑prone water
+          using microbubble‑driven flotation instead of chemicals. Experiments with
+          <em>Chlorella vulgaris</em> in ½‑gallon jars showed that 7.2&nbsp;V can reduce turbidity to
+          near‑water absorbance within 24 hours. 
         </p>
         <div class="hero-buttons">
-          <a href="#overview" class="btn primary">View System Overview</a>
-          <a href="#experiments" class="btn ghost">See Experimental Data</a>
+          <a href="#system" class="btn primary">Explore the System</a>
+          <a href="#results" class="btn ghost">View Key Results</a>
         </div>
       </div>
       <div class="hero-visual">
         <div class="reactor-card">
-          <div class="bubble"></div>
-          <div class="bubble bubble-delay"></div>
-          <div class="reactor-label">Live Reactor Model</div>
+          <div class="reactor-inner">
+            <div class="electrode electrode-left"></div>
+            <div class="electrode electrode-right"></div>
+            <div class="bubble"></div>
+            <div class="bubble bubble-delay"></div>
+            <div class="bubble bubble-small"></div>
+          </div>
+          <div class="reactor-label">Microbubble Electroflotation Reactor</div>
         </div>
       </div>
     </section>
 
-    <section id="overview" class="section">
-      <h2>System Overview</h2>
+    <!-- PROBLEM -->
+    <section id="problem" class="section">
+      <h2>Why Electroflotation?</h2>
       <p class="section-text">
-        Our electroflotation system uses controlled current and voltage to generate microbubbles,
-        lifting suspended particles and algae to the surface. Closed‑loop control maintains
-        optimal operating conditions based on turbidity and power consumption.
+        Open stormwater drains often accumulate stagnant, nutrient‑rich water that supports algal growth
+        and creates habitats for mosquito larvae. These conditions increase the risk of vector‑borne
+        disease transmission. Chemical larvicides require constant purchase and reapplication, and may be
+        undesirable in low‑maintenance systems. 
       </p>
       <div class="card-grid">
         <div class="card">
-          <h3>Reactor Design</h3>
+          <h3>Mosquito‑Prone Water</h3>
           <p>
-            Vertical acrylic column with adjustable electrode spacing, optimized for bubble
-            residence time and flow distribution.
+            Stagnant, nutrient‑rich water drives algal blooms and provides ideal breeding habitats for
+            mosquito larvae.
           </p>
         </div>
         <div class="card">
-          <h3>Power & Control</h3>
+          <h3>Limitations of Chemicals</h3>
           <p>
-            Programmable supply with current limiting, integrated sensors, and data logging for
-            voltage, current, and turbidity.
+            Larvicides and chemical treatments demand repeated application and ongoing cost, and can be
+            unsuitable for intermittent or remote systems.
           </p>
         </div>
         <div class="card">
-          <h3>Measurement</h3>
+          <h3>Electroflotation Opportunity</h3>
           <p>
-            Turbidity, bubble size distribution, and energy per unit mass of water treated.
+            Microbubble‑driven flotation offers a non‑chemical, energy‑efficient way to lift and remove
+            suspended algal biomass.
           </p>
         </div>
       </div>
     </section>
 
-    <section id="experiments" class="section">
-      <h2>Experiments & Results</h2>
+    <!-- SYSTEM -->
+    <section id="system" class="section">
+      <h2>System Architecture</h2>
       <p class="section-text">
-        Below is a snapshot of our experimental matrix. You can later replace this with real plots
-        or embedded dashboards.
+        Our prototype uses vertically oriented graphite electrodes in ½‑gallon jars, powered by a low‑voltage
+        DC supply and controlled by a MOSFET‑based timing circuit. Electrolysis generates hydrogen and oxygen
+        microbubbles that attach to algal cells, lifting them and clarifying the water. 
       </p>
+
+      <div class="system-grid">
+        <div class="system-block">
+          <h3>1. Reactor Module</h3>
+          <p>
+            Two graphite electrodes (13&nbsp;mm × 105&nbsp;mm) spaced 0.75&nbsp;cm apart in ½‑gallon jars
+            containing cultured <em>Chlorella vulgaris</em>. 
+          </p>
+          <ul>
+            <li>Electrodes ~1&nbsp;cm above jar bottom</li>
+            <li>Algae grown with AeroGarden nutrient solution</li>
+            <li>Indoor classroom lighting (~300–500&nbsp;lux)</li>
+          </ul>
+        </div>
+
+        <div class="system-block">
+          <h3>2. Power & Timing</h3>
+          <p>
+            Bench power supply at 0, 5, 7.2, and 10&nbsp;V, controlled by an Arduino‑driven MOSFET circuit
+            that activates electrolysis for 5 minutes every 2 hours. 
+          </p>
+          <ul>
+            <li>Low‑power DC (&lt; 10&nbsp;V) for safety</li>
+            <li>12 activation cycles over 24 hours</li>
+            <li>Current draw from ~5.4&nbsp;mA to 12.5&nbsp;mA</li>
+          </ul>
+        </div>
+
+        <div class="system-block">
+          <h3>3. Sensing & Data</h3>
+          <p>
+            Turbidity measured at surface and mid‑depth using a Vernier Colorimeter at 635&nbsp;nm, with
+            pH tracked qualitatively to monitor electrolysis intensity. 
+          </p>
+          <ul>
+            <li>Initial turbidity: ~2–4&nbsp;NTU</li>
+            <li>Sampling at 0, 1, and 24 hours</li>
+            <li>Microscope used to assess aggregation and floc formation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results" class="section">
+      <h2>Key Results</h2>
+      <p class="section-text">
+        A one‑way ANOVA showed a significant effect of voltage on turbidity reduction (F(3,8) = 6.15,
+        p &lt; 0.05), with 7.2&nbsp;V consistently producing the strongest clarification while avoiding
+        foam and pigment damage seen at 10&nbsp;V. 
+      </p>
+
       <div class="data-panel">
         <div class="data-row">
-          <span class="label">Run #12</span>
-          <span class="value">Current: 1.8 A · Voltage: 9.5 V · Turbidity ↓ 63%</span>
+          <span class="label">7.2&nbsp;V</span>
+          <span class="value">
+            ~91–100% turbidity reduction; final turbidity &lt; 0.1&nbsp;NTU at both layers; minimal foaming.
+          </span>
         </div>
         <div class="data-row">
-          <span class="label">Run #19</span>
-          <span class="value">Current: 2.2 A · Voltage: 11.0 V · Turbidity ↓ 78%</span>
+          <span class="label">10&nbsp;V</span>
+          <span class="value">
+            ~89–99% reduction but excessive foaming and pigment damage (browning of biomass). 
+          </span>
         </div>
         <div class="data-row">
-          <span class="label">Run #23</span>
-          <span class="value">Current: 1.4 A · Voltage: 8.0 V · Turbidity ↓ 51%</span>
+          <span class="label">5&nbsp;V</span>
+          <span class="value">
+            ~13–65% reduction; sub‑threshold bubble generation and remixing of settled cells.
+          </span>
+        </div>
+        <div class="data-row">
+          <span class="label">0&nbsp;V</span>
+          <span class="value">
+            Natural settling only; jars remained relatively turbid over 24 hours.
+          </span>
         </div>
       </div>
     </section>
 
-    <section id="team" class="section">
-      <h2>Team</h2>
+    <!-- THRESHOLDS -->
+    <section id="thresholds" class="section">
+      <h2>Voltage & Current Thresholds</h2>
+      <p class="section-text">
+        Voltage acted as a convenient proxy for current density with fixed geometry and conductivity, but
+        microbubble generation fundamentally depends on current. Follow‑up trials mapped activation behavior
+        versus current, revealing an optimal zone around 0.177–0.18&nbsp;A. 
+      </p>
+
       <div class="card-grid">
         <div class="card">
-          <h3>Principal Investigator</h3>
-          <p>Leads reactor design, experimental planning, and publication strategy.</p>
+          <h3>Voltage Threshold</h3>
+          <p>
+            7.2&nbsp;V marks the threshold where microbubble generation becomes strong enough for effective
+            flotation without excessive foaming or pigment damage.
+          </p>
         </div>
         <div class="card">
-          <h3>Student Researchers</h3>
+          <h3>Current Activation Zone</h3>
           <p>
-            Responsible for system assembly, data collection, and control algorithm development.
+            Around 0.177–0.18&nbsp;A, surface reduction reached ~92–99.5% and mid‑depth reduction ~92–97%,
+            with modest pH shifts (~±0.5 units). 
+          </p>
+        </div>
+        <div class="card">
+          <h3>Safe Operating Window</h3>
+          <p>
+            Higher currents (e.g., 0.22–0.262&nbsp;A) caused pigment destruction and electrode loss, while
+            lower currents (0.16&nbsp;A) failed to sustain stable microbubble generation.
           </p>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="section">
-      <h2>Contact</h2>
+    <!-- FUTURE WORK -->
+    <section id="future" class="section">
+      <h2>Future Work</h2>
       <p class="section-text">
-        For collaboration, data requests, or more information about the electroflotation project:
+        Next steps include current‑controlled, closed‑loop prototypes for stormwater drains, mapping behavior
+        across multiple algal species and mixed organic loads, and eventually integrating mosquito larvae and
+        sludge to emulate real‑world conditions. 
       </p>
-      <p class="section-text">
-        Email: <strong>your.email@university.edu</strong><br />
-        GitHub: <a href="#" class="link">github.com/your-username</a>
-      </p>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Closed‑Loop Control</h3>
+          <p>
+            Use current feedback to automatically adjust voltage and maintain target bubble generation across
+            variable conductivity.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Species & Habitat Expansion</h3>
+          <p>
+            Extend trials beyond <em>Chlorella vulgaris</em> to filamentous algae, mixed communities, and
+            realistic stormwater compositions.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Deployable Modules</h3>
+          <p>
+            Design free‑floating electroflotation units for low‑maintenance installation in open drains and
+            retention basins.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team" class="section">
+      <h2>Team</h2>
+      <div class="team-grid">
+        <div class="team-card">
+          <h3>Yatharth Rajakumar</h3>
+          <p><strong>Project Lead & Systems Engineer</strong></p>
+          <p>
+            Leads overall system design, experimental strategy, and threshold characterization for voltage‑ and
+            current‑controlled electroflotation.
+          </p>
+        </div>
+        <div class="team-card">
+          <h3>Maxwell Costa</h3>
+          <p><strong>Electronics & Embedded Systems Engineer</strong></p>
+          <p>
+            Designs and implements the MOSFET timing circuitry, power electronics, and embedded control
+            architecture for deployable prototypes.
+          </p>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
-    Electroflotation Project · © 2026
+    <span>Low‑Voltage Electroflotation for Algal Clarification · Amherst Regional High School</span>
+    <span>Project Lead & Systems Engineer: Yatharth Rajakumar · Electronics & Embedded Systems Engineer: Maxwell Costa</span>
   </footer>
 
   <script src="script.js"></script>
