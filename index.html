@@ -4,119 +4,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MOPP — Mosquito & Organism Purification Project</title>
-  <style>
-    /* ==========================================================================
-       RESET & BASE STYLES
-       ========================================================================== */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    :root {
-      --bg-dark: #050e09;
-      --bg-card: rgba(12, 28, 18, 0.65);
-      --border-card: rgba(57, 255, 20, 0.18);
-      --border-card-hover: rgba(57, 255, 20, 0.45);
-      --text-main: #e2f9e5;
-      --text-muted: #83a987;
-      --accent-neon: #39ff14;
-      --accent-glow: rgba(57, 255, 20, 0.35);
-      --accent-dim: #13381a;
-      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
+  <canvas id="particle-canvas"></canvas>
 
-    html {
-      scroll-behavior: smooth;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      font-family: var(--font-main);
-      line-height: 1.5;
-    }
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-awards-banner">
+        <span class="badge">2nd — Regional MSEF</span>
+        <span class="badge">3rd — State MSEF</span>
+        <span class="badge">Patent Pending</span>
+        <span class="badge">Open Source Goal</span>
+      </div>
 
-    body {
-      overflow-x: hidden;
-      position: relative;
-      min-height: 100vh;
-    }
+      <p class="hero-subtitle">Basic Overview</p>
+      <h1 class="hero-title">MOPP</h1>
+      <h2 style="color: var(--text-muted); font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: 400;">
+        Mosquito & Organism Purification Project
+      </h2>
 
-    /* Floating Canvas Background */
-    #particle-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      pointer-events: none;
-    }
+      <p class="hero-description" style="font-size: 1.25rem; font-weight: 600; color: var(--accent-neon);">
+        Removing the root cause of mosquito breeding.
+      </p>
 
-    /* Typography & Core Elements */
-    h1, h2, h3, h4 {
-      color: #fff;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
+      <p class="hero-description">
+        Mosquitoes breed on the still algal film of stagnant water. The MOPP system aggregates and sinks that surface algae cutting off the breeding layer while leaving the pond's biosphere intact.
+      </p>
 
-    a {
-      color: var(--accent-neon);
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
+      <div class="hero-actions">
+        <a href="#results" class="btn">Our Paper</a>
+        <a href="#support" class="btn" style="background: transparent; border: 1px solid var(--accent-neon); color: var(--accent-neon);">Support MOPP</a>
+      </div>
+    </div>
+  </section>
 
-    a:hover {
-      text-shadow: 0 0 10px var(--accent-glow);
-    }
+  <section>
+    <div class="container">
+      <div class="glass-card">
+        <h3 style="text-align: center; margin-bottom: 2rem;">System Architecture</h3>
+        <div class="svg-diagram-box" style="height: auto; padding: 2rem 1rem;">
+          <svg viewBox="0 0 900 120" style="width: 100%; max-width: 850px; height: auto;" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="35" width="100" height="50" rx="8" fill="#0d2614" stroke="#39ff14" stroke-width="1.5"/>
+            <text x="60" y="65" fill="#39ff14" font-size="11" font-weight="bold" text-anchor="middle">DC power</text>
 
-    /* Glassmorphism Card Style */
-    .glass-card {
-      background: var(--bg-card);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border-card);
-      border-radius: 20px;
-      padding: 2.5rem;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    }
+            <path d="M 110 60 L 150 60" stroke="#39ff14" stroke-width="2" class="anim-flow-line"/>
 
-    .glass-card:hover {
-      border-color: var(--border-card-hover);
-      box-shadow: 0 12px 40px 0 rgba(57, 255, 20, 0.15);
-      transform: translateY(-2px);
-    }
+            <rect x="150" y="35" width="110" height="50" rx="8" fill="#0d2614" stroke="#39ff14" stroke-width="1.5"/>
+            <text x="205" y="65" fill="#39ff14" font-size="11" font-weight="bold" text-anchor="middle">MOSFET timing</text>
 
-    .badge {
-      display: inline-block;
-      padding: 0.35rem 0.85rem;
-      background: var(--accent-dim);
-      border: 1px solid var(--accent-neon);
-      color: var(--accent-neon);
-      font-size: 0.8rem;
-      font-weight: 600;
-      border-radius: 50px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 1rem;
-    }
+            <path d="M 260 60 L 300 60" stroke="#39ff14" stroke-width="2" class="anim-flow-line"/>
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.85rem 1.75rem;
-      border-radius: 12px;
-      font-weight: 600;
-      background: var(--accent-neon);
-      color: #000;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 0 15px var(--accent-glow);
-      transition: all 0.3s ease;
-    }
+            <rect x="300" y="35" width="100" height="50" rx="8" fill="#0d2614" stroke="#39ff14" stroke-width="1.5"/>
+            <text x="350" y="65" fill="#39ff14" font-size="11" font-weight="bold" text-anchor="middle">electrodes</text>
 
-    .btn:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 25px var(--accent-neon);
-    }
+            <path d="M 400 60 L 440 60" stroke="#39ff14" stroke-width="2" class="anim-flow-line"/>
+
+            <rect x="440" y="35" width="100" height="50" rx="8" fill="#0d2614" stroke="#39ff14" stroke-width="1.5"/>
+            <text x="490" y="65" fill="#39ff14" font-size="11" font-weight="bold" text-anchor="middle">bubbles</text>
+
+            <path d="M 540 60 L 580 60" stroke="#39ff14" stroke-width="2" class="anim-flow-line"/>
+
+            <rect x="580" y="35" width="110" height="50" rx="8" fill="#0d2614" stroke="#39ff14" stroke-width="1.5"/>
+            <text x="635" y="65" fill="#39ff14" font-size="11" font-weight="bold" text-anchor="middle">aggregation</text>
+
+            <path d="M 690 60 L 730 60" stroke="#39ff14" stroke-width="2" class="anim-flow-line"/>
+
+            <rect x="730" y="35" width="
