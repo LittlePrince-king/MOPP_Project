@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Low-Voltage Electroflotation for Algal Clarification</title>
+  <title>MOPP — Mosquito & Organism Purification Project</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -10,264 +10,336 @@
   <div class="algae-field"></div>
 
   <header class="nav">
-    <div class="logo">Electroflotation Lab</div>
+    <div class="logo">MOPP</div>
     <nav>
-      <a href="#hero">Overview</a>
-      <a href="#problem">Problem</a>
-      <a href="#system">System</a>
+      <a href="#overview">Overview</a>
+      <a href="#method">How it works</a>
       <a href="#results">Results</a>
-      <a href="#thresholds">Thresholds</a>
-      <a href="#future">Future Work</a>
+      <a href="#recognition">Recognition</a>
+      <a href="#build">Build it</a>
+      <a href="#support">Support</a>
       <a href="#team">Team</a>
     </nav>
   </header>
 
   <main>
-    <!-- HERO -->
-    <section id="hero" class="section hero">
+    <!-- HERO / BASIC OVERVIEW -->
+    <section id="overview" class="section hero">
       <div class="hero-content">
-        <h1>Low‑Voltage Electroflotation for Algal Clarification</h1>
+        <h1>MOPP</h1>
+        <p class="hero-tagline">Mosquito &amp; Organism Purification Project</p>
         <p class="hero-subtitle">
-          We explore whether low‑voltage electroflotation can clarify algae‑rich, mosquito‑prone water
-          using microbubble‑driven flotation instead of chemicals. Experiments with
-          <em>Chlorella vulgaris</em> in ½‑gallon jars showed that 7.2&nbsp;V can reduce turbidity to
-          near‑water absorbance within 24 hours. 
+          Removing the root cause<br />
+          of mosquito breeding.
+        </p>
+        <p class="hero-body">
+          Mosquitoes breed on the still algal film of stagnant water. The MOPP system aggregates and sinks
+          that surface algae cutting off the breeding layer while leaving the pond's biosphere intact.
         </p>
         <div class="hero-buttons">
-          <a href="#system" class="btn primary">Explore the System</a>
-          <a href="#results" class="btn ghost">View Key Results</a>
+          <a href="#paper" class="btn primary">Our Paper</a>
+          <a href="#support" class="btn ghost">Support MOPP</a>
+        </div>
+        <div class="awards-row">
+          <div class="award-pill">
+            <span class="award-rank">2nd</span>
+            <span class="award-label">Regional MSEF</span>
+          </div>
+          <div class="award-pill">
+            <span class="award-rank">3rd</span>
+            <span class="award-label">State MSEF</span>
+          </div>
+          <div class="award-pill">
+            <span class="award-label">Patent Pending</span>
+          </div>
+          <div class="award-pill">
+            <span class="award-label">Open Source goal</span>
+          </div>
         </div>
       </div>
+
+      <!-- SYSTEM ARCHITECTURE / ELECTRODE DRAWING -->
       <div class="hero-visual">
         <div class="reactor-card">
           <div class="reactor-inner">
+            <!-- System architecture: power -> control -> electrodes -->
+            <div class="system-node node-power">DC</div>
+            <div class="system-node node-control">MOSFET</div>
+            <div class="system-node node-reactor">Reactor</div>
+            <div class="system-link link-power"></div>
+            <div class="system-link link-control"></div>
+
+            <!-- Electrode spacing + bubble formation -->
             <div class="electrode electrode-left"></div>
             <div class="electrode electrode-right"></div>
-            <div class="bubble"></div>
-            <div class="bubble bubble-delay"></div>
-            <div class="bubble bubble-small"></div>
+            <div class="spacing-bar"></div>
+
+            <!-- Bubble formation / aggregation / sinking -->
+            <div class="bubble bubble-rise"></div>
+            <div class="bubble bubble-rise delay"></div>
+            <div class="bubble bubble-rise small"></div>
+
+            <div class="floc floc-1"></div>
+            <div class="floc floc-2"></div>
+            <div class="floc floc-3"></div>
+
+            <!-- Larval reduction (surface layer clearing) -->
+            <div class="surface-layer"></div>
+            <div class="larva larva-1"></div>
+            <div class="larva larva-2"></div>
           </div>
-          <div class="reactor-label">Microbubble Electroflotation Reactor</div>
+          <div class="reactor-label">Electrode spacing · bubbles · aggregation · larvae</div>
         </div>
       </div>
     </section>
 
-    <!-- PROBLEM -->
+    <!-- 01 — THE ISSUE (MOPP / PROBLEM) -->
     <section id="problem" class="section">
-      <h2>Why Electroflotation?</h2>
+      <div class="section-header">
+        <span class="section-index">01 — The issue</span>
+        <h2>Surface algae is a mosquito breeding hotspot.</h2>
+      </div>
       <p class="section-text">
-        Open stormwater drains often accumulate stagnant, nutrient‑rich water that supports algal growth
-        and creates habitats for mosquito larvae. These conditions increase the risk of vector‑borne
-        disease transmission. Chemical larvicides require constant purchase and reapplication, and may be
-        undesirable in low‑maintenance systems. 
+        Standing water with a stable surface layer is a major breeding location for mosquitoes. Wherever the
+        surface stays undisturbed and rich in algae, mosquitoes breed excessively and increase the risk of
+        transmitted diseases like malaria and yellow fever.
       </p>
-      <div class="card-grid">
-        <div class="card">
-          <h3>Mosquito‑Prone Water</h3>
-          <p>
-            Stagnant, nutrient‑rich water drives algal blooms and provides ideal breeding habitats for
-            mosquito larvae.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Limitations of Chemicals</h3>
-          <p>
-            Larvicides and chemical treatments demand repeated application and ongoing cost, and can be
-            unsuitable for intermittent or remote systems.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Electroflotation Opportunity</h3>
-          <p>
-            Microbubble‑driven flotation offers a non‑chemical, energy‑efficient way to lift and remove
-            suspended algal biomass.
-          </p>
+      <p class="section-text">
+        Most solutions now are Larvicides, oils, and draining. These work by killing broadly or destroying
+        the habitat, and require reapplication to stay clean. MOPP simply moves the algal layer to be
+        inaccessible to mosquitoes, and leaves the rest of the ecosystem alone.
+      </p>
+
+      <!-- Diagram: surface film + breeding layer -->
+      <div class="diagram-row">
+        <div class="diagram-card">
+          <div class="diagram-water">
+            <div class="diagram-surface-film"></div>
+            <div class="diagram-larva diagram-larva-a"></div>
+            <div class="diagram-larva diagram-larva-b"></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- SYSTEM -->
-    <section id="system" class="section">
-      <h2>System Architecture</h2>
-      <p class="section-text">
-        Our prototype uses vertically oriented graphite electrodes in ½‑gallon jars, powered by a low‑voltage
-        DC supply and controlled by a MOSFET‑based timing circuit. Electrolysis generates hydrogen and oxygen
-        microbubbles that attach to algal cells, lifting them and clarifying the water. 
-      </p>
+    <!-- 02 — THE METHOD (How it works) -->
+    <section id="method" class="section">
+      <div class="section-header">
+        <span class="section-index">02 — The method</span>
+        <h2>Aggregate, clear, remove.</h2>
+      </div>
+      <p class="section-text">A simple 3 step process.</p>
 
-      <div class="system-grid">
-        <div class="system-block">
-          <h3>1. Reactor Module</h3>
+      <div class="method-grid">
+        <div class="method-step">
+          <div class="step-number">01</div>
+          <h3>Aggregate</h3>
           <p>
-            Two graphite electrodes (13&nbsp;mm × 105&nbsp;mm) spaced 0.75&nbsp;cm apart in ½‑gallon jars
-            containing cultured <em>Chlorella vulgaris</em>. 
+            Microbubbles from the splitting of H<sub>2</sub>O molecules in electrolysis cause algal particles
+            and cells to aggregate into large groups.
           </p>
-          <ul>
-            <li>Electrodes ~1&nbsp;cm above jar bottom</li>
-            <li>Algae grown with AeroGarden nutrient solution</li>
-            <li>Indoor classroom lighting (~300–500&nbsp;lux)</li>
-          </ul>
+          <div class="diagram-mini">
+            <div class="mini-electrodes">
+              <div class="mini-electrode"></div>
+              <div class="mini-electrode"></div>
+            </div>
+            <div class="mini-bubble mini-bubble-1"></div>
+            <div class="mini-bubble mini-bubble-2"></div>
+            <div class="mini-bubble mini-bubble-3"></div>
+          </div>
         </div>
 
-        <div class="system-block">
-          <h3>2. Power & Timing</h3>
+        <div class="method-step">
+          <div class="step-number">02</div>
+          <h3>Clear</h3>
           <p>
-            Bench power supply at 0, 5, 7.2, and 10&nbsp;V, controlled by an Arduino‑driven MOSFET circuit
-            that activates electrolysis for 5 minutes every 2 hours. 
+            The aggregated algal content sinks further down the water column, leaving the surface of the water
+            clear of algae and film.
           </p>
-          <ul>
-            <li>Low‑power DC (&lt; 10&nbsp;V) for safety</li>
-            <li>12 activation cycles over 24 hours</li>
-            <li>Current draw from ~5.4&nbsp;mA to 12.5&nbsp;mA</li>
-          </ul>
+          <div class="diagram-mini">
+            <div class="mini-water">
+              <div class="mini-floc mini-floc-sink-1"></div>
+              <div class="mini-floc mini-floc-sink-2"></div>
+            </div>
+          </div>
         </div>
 
-        <div class="system-block">
-          <h3>3. Sensing & Data</h3>
+        <div class="method-step">
+          <div class="step-number">03</div>
+          <h3>Remove</h3>
           <p>
-            Turbidity measured at surface and mid‑depth using a Vernier Colorimeter at 635&nbsp;nm, with
-            pH tracked qualitatively to monitor electrolysis intensity. 
+            Without the biofilm to attach to nor their primary food source, mosquito larvae die off, and
+            mosquitoes naturally leave the area.
           </p>
-          <ul>
-            <li>Initial turbidity: ~2–4&nbsp;NTU</li>
-            <li>Sampling at 0, 1, and 24 hours</li>
-            <li>Microscope used to assess aggregation and floc formation</li>
-          </ul>
+          <div class="diagram-mini">
+            <div class="mini-surface-clear"></div>
+            <div class="mini-larva mini-larva-fade"></div>
+          </div>
         </div>
       </div>
+
+      <p class="section-text">
+        MOPP targets the physical breeding layer, nothing in the water is chemically killed or harmed.
+      </p>
     </section>
 
-    <!-- RESULTS -->
+    <!-- 03 — RESULTS & DATA -->
     <section id="results" class="section">
-      <h2>Key Results</h2>
+      <div class="section-header">
+        <span class="section-index">03 — Results &amp; data</span>
+        <h2>Findings</h2>
+      </div>
       <p class="section-text">
-        A one‑way ANOVA showed a significant effect of voltage on turbidity reduction (F(3,8) = 6.15,
-        p &lt; 0.05), with 7.2&nbsp;V consistently producing the strongest clarification while avoiding
-        foam and pigment damage seen at 10&nbsp;V. 
+        Our findings are published and the data is free to inspect.
       </p>
 
-      <div class="data-panel">
-        <div class="data-row">
-          <span class="label">7.2&nbsp;V</span>
-          <span class="value">
-            ~91–100% turbidity reduction; final turbidity &lt; 0.1&nbsp;NTU at both layers; minimal foaming.
-          </span>
+      <div class="results-grid">
+        <div class="results-card">
+          <h3>Surface algae coverage over a trial run</h3>
+          <p class="results-caption">
+            0h · 6h · 12h · 24h · 36h · 48h · 72h
+          </p>
+          <div class="chart chart-algae"></div>
+          <p class="results-note">
+            Example values — swap in your real dataset in <code>main.js</code>.
+          </p>
         </div>
-        <div class="data-row">
-          <span class="label">10&nbsp;V</span>
-          <span class="value">
-            ~89–99% reduction but excessive foaming and pigment damage (browning of biomass). 
-          </span>
+
+        <div class="results-card">
+          <h3>Larvae counts: treated vs. control</h3>
+          <p class="results-caption">
+            Day 0 · Day 2 · Day 4 · Day 6 · Treated · Control
+          </p>
+          <div class="chart chart-larvae"></div>
+          <p class="results-note">
+            Example values — swap in your real dataset in <code>main.js</code>.
+          </p>
         </div>
-        <div class="data-row">
-          <span class="label">5&nbsp;V</span>
-          <span class="value">
-            ~13–65% reduction; sub‑threshold bubble generation and remixing of settled cells.
-          </span>
+      </div>
+
+      <div class="downloads-row" id="paper">
+        <div class="download-pill">
+          <span class="download-type">PDF</span>
+          <span class="download-label">Published paper</span>
+          <span class="download-desc">The full method &amp; findings</span>
         </div>
-        <div class="data-row">
-          <span class="label">0&nbsp;V</span>
-          <span class="value">
-            Natural settling only; jars remained relatively turbid over 24 hours.
-          </span>
+        <div class="download-pill">
+          <span class="download-type">CSV</span>
+          <span class="download-label">Raw dataset</span>
+          <span class="download-desc">Every measurement, unedited</span>
+        </div>
+        <div class="download-pill">
+          <span class="download-type">PDF</span>
+          <span class="download-label">MSEF poster</span>
+          <span class="download-desc">The board we presented</span>
         </div>
       </div>
     </section>
 
-    <!-- THRESHOLDS -->
-    <section id="thresholds" class="section">
-      <h2>Voltage & Current Thresholds</h2>
-      <p class="section-text">
-        Voltage acted as a convenient proxy for current density with fixed geometry and conductivity, but
-        microbubble generation fundamentally depends on current. Follow‑up trials mapped activation behavior
-        versus current, revealing an optimal zone around 0.177–0.18&nbsp;A. 
-      </p>
-
-      <div class="card-grid">
-        <div class="card">
-          <h3>Voltage Threshold</h3>
-          <p>
-            7.2&nbsp;V marks the threshold where microbubble generation becomes strong enough for effective
-            flotation without excessive foaming or pigment damage.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Current Activation Zone</h3>
-          <p>
-            Around 0.177–0.18&nbsp;A, surface reduction reached ~92–99.5% and mid‑depth reduction ~92–97%,
-            with modest pH shifts (~±0.5 units). 
-          </p>
-        </div>
-        <div class="card">
-          <h3>Safe Operating Window</h3>
-          <p>
-            Higher currents (e.g., 0.22–0.262&nbsp;A) caused pigment destruction and electrode loss, while
-            lower currents (0.16&nbsp;A) failed to sustain stable microbubble generation.
-          </p>
-        </div>
+    <!-- 04 — RECOGNITION -->
+    <section id="recognition" class="section">
+      <div class="section-header">
+        <span class="section-index">04 — Recognition</span>
+        <h2>Where MOPP has been recognized.</h2>
       </div>
-    </section>
 
-    <!-- FUTURE WORK -->
-    <section id="future" class="section">
-      <h2>Future Work</h2>
-      <p class="section-text">
-        Next steps include current‑controlled, closed‑loop prototypes for stormwater drains, mapping behavior
-        across multiple algal species and mixed organic loads, and eventually integrating mosquito larvae and
-        sludge to emulate real‑world conditions. 
-      </p>
-      <div class="card-grid">
-        <div class="card">
-          <h3>Closed‑Loop Control</h3>
-          <p>
-            Use current feedback to automatically adjust voltage and maintain target bubble generation across
-            variable conductivity.
-          </p>
+      <div class="recognition-grid">
+        <div class="recognition-card">
+          <h3>2nd</h3>
+          <p>Regional MSEF</p>
+          <p class="recognition-note">Second place, regional science &amp; engineering fair.</p>
         </div>
-        <div class="card">
-          <h3>Species & Habitat Expansion</h3>
-          <p>
-            Extend trials beyond <em>Chlorella vulgaris</em> to filamentous algae, mixed communities, and
-            realistic stormwater compositions.
-          </p>
+        <div class="recognition-card">
+          <h3>3rd</h3>
+          <p>State MSEF</p>
+          <p class="recognition-note">Third place, statewide science &amp; engineering fair.</p>
         </div>
-        <div class="card">
-          <h3>Deployable Modules</h3>
-          <p>
-            Design free‑floating electroflotation units for low‑maintenance installation in open drains and
-            retention basins.
+        <div class="recognition-card recognition-star">
+          <h3>★</h3>
+          <p>Additional awards</p>
+          <p class="recognition-note">
+            NOAA "Taking The Pulse of The Planet" award
           </p>
         </div>
       </div>
     </section>
 
-    <!-- TEAM -->
+    <!-- 05 — OPEN SOURCE / BUILD IT -->
+    <section id="build" class="section">
+      <div class="section-header">
+        <span class="section-index">05 — Open source</span>
+        <h2>Built to be rebuildable by anyone.</h2>
+      </div>
+      <p class="section-text">
+        Our goal is to offer both our custom hardware, as well as the designs and science so anyone can
+        recreate our method and make it work.
+      </p>
+
+      <div class="build-grid">
+        <div class="build-card">
+          <h3>Designs &amp; source</h3>
+          <p>Hardware files, firmware, and build instructions on GitHub.</p>
+          <button class="btn primary">Repository -&gt;</button>
+        </div>
+        <div class="build-card">
+          <h3>Data &amp; papers</h3>
+          <p>The full dataset and paper are public.</p>
+          <button class="btn ghost">Go to results -&gt;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 — SUPPORT -->
+    <section id="support" class="section">
+      <div class="section-header">
+        <span class="section-index">06 — Support</span>
+        <h2>Help us get MOPP to where it's needed.</h2>
+      </div>
+      <p class="section-text">
+        Funding covers field trials and further research and development, as well as keeping things open
+        source and available. Support and guidance is also much appreciated!
+      </p>
+
+      <div class="support-row">
+        <div class="support-card">
+          <h3>GOFUNDME/KICKSTARTER</h3>
+        </div>
+        <div class="support-card">
+          <h3>Get in touch</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 — TEAM -->
     <section id="team" class="section">
-      <h2>Team</h2>
+      <div class="section-header">
+        <span class="section-index">07 — The team</span>
+        <h2>The team behind MOPP.</h2>
+      </div>
+
       <div class="team-grid">
         <div class="team-card">
-          <h3>Yatharth Rajakumar</h3>
-          <p><strong>Project Lead & Systems Engineer</strong></p>
-          <p>
-            Leads overall system design, experimental strategy, and threshold characterization for voltage‑ and
-            current‑controlled electroflotation.
-          </p>
+          <div class="team-initial">M</div>
+          <h3>Max Costa</h3>
+          <p>Electrical and Embedded Systems Engineer</p>
         </div>
         <div class="team-card">
-          <h3>Maxwell Costa</h3>
-          <p><strong>Electronics & Embedded Systems Engineer</strong></p>
-          <p>
-            Designs and implements the MOSFET timing circuitry, power electronics, and embedded control
-            architecture for deployable prototypes.
-          </p>
+          <div class="team-initial">Y</div>
+          <h3>Yatharth Rajakumar</h3>
+          <p>Systems Engineer and Project Manager</p>
         </div>
       </div>
+
+      <p class="section-text team-contact">
+        Questions, collaboration, or press: you@example.com
+      </p>
     </section>
   </main>
 
   <footer class="footer">
-    <span>Low‑Voltage Electroflotation for Algal Clarification · Amherst Regional High School</span>
-    <span>Project Lead & Systems Engineer: Yatharth Rajakumar · Electronics & Embedded Systems Engineer: Maxwell Costa</span>
+    <p>MOPP</p>
+    <p>Mosquito &amp; Organism Purification Project · Patent pending · Open-source in progress</p>
+    <p>© 2026 MOPP. Built for anyone who needs it.</p>
   </footer>
 
   <script src="script.js"></script>
